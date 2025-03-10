@@ -23,15 +23,15 @@ export const metadata: Metadata = {
       {
         media: "(prefers-color-scheme: light)",
         url: "/logo.svg",
-        href: "/logo.svg"
+        href: "/logo.svg",
       },
       {
         media: "(prefers-color-scheme: dark)",
         url: "/logo-dark.svg",
-        href: "/logo-dark.svg"
-      }
-    ]
-  }
+        href: "/logo-dark.svg",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -51,7 +51,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
             storageKey="notion-theme"
-          > <Toaster position="bottom-center" />
+          >
+            {" "}
+            <Toaster position="bottom-center" />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>
