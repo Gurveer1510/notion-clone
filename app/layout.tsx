@@ -1,3 +1,4 @@
+import { Toaster } from "sonner";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -50,7 +51,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
             storageKey="notion-theme"
-          >
+          > <Toaster position="bottom-center" />
             {children}
           </ThemeProvider>
         </ConvexClientProvider>

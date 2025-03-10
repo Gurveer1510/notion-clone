@@ -6,10 +6,13 @@ import { useMediaQuery } from "usehooks-ts";
 
 import { cn } from "@/lib/utils";
 import UserItem from "./UserItem";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 export function Navigation() {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width:768px)");
+  const documents = useQuery(api.documents.get)
 
   const isResizingRef = useRef(false);
   const sidebarRef = useRef<ComponentRef<"aside">>(null);
@@ -65,11 +68,11 @@ export function Navigation() {
       setIsResetting(true);
 
       sidebarRef.current.style.width = isMobile ? "100%" : "240px";
+      navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
       navbarRef.current.style.setProperty(
         "width",
-        isMobile ? "0" : "calc(100%-240px)",
+        isMobile ? "0" : "calc(100% - 240px)",
       );
-      navbarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
       setTimeout(() => {
         setIsResetting(false);
       }, 300);
@@ -113,7 +116,13 @@ export function Navigation() {
           <div>
             <UserItem />
           </div>
-          <div className="mt-4">documents</div>
+          <div className="mt-4">
+            {
+              documents?.map((doc) => (
+                <p key={doc._id}>{doc.title}</p>
+              ))
+            }
+          </div>
           <div
             className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10
         right-0 top-0"
