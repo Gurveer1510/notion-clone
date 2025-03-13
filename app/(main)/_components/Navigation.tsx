@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import {
   ChevronsLeft,
   MenuIcon,
+  Plus,
   PlusCircle,
   Search,
   Settings,
@@ -142,6 +143,11 @@ export function Navigation() {
           </div>
           <div className="mt-4">
             <DocumentList />
+            <Item
+              onClick={handleCreate}
+              icon={Plus}
+              label="Add a page"
+            />
           </div>
           <div
             className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10
