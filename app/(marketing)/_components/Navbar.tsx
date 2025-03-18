@@ -35,7 +35,7 @@ const Navbar = () => {
                                 </SignInButton>
                                 <SignInButton mode="modal">
                                     <Button size={"sm"}>
-                                        Get Notion free
+                                        Get Jotter free
                                     </Button>
                                 </SignInButton>
                             </>
@@ -46,7 +46,7 @@ const Navbar = () => {
                             <>
                                 <Button variant={"ghost"} size={"sm"} asChild>
                                     <Link href="/documents">
-                                        Enter Notion
+                                        Enter Jotter
                                     </Link>
                                 </Button>
                                 <UserButton />

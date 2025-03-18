@@ -37,6 +37,7 @@ const Toolbar = ({
         setTimeout(() => {
             setValue(initialData.title)
             inputRef.current?.focus()
+            // inputRef.current?.setSelectionRange(0, inputRef.current?.value.length)
         }, 0)
     }
 
@@ -73,7 +74,7 @@ const Toolbar = ({
     }
 
     return (
-        <div className="pl-[54px] group relative">
+        <div className="pl-[54px] mx-auto group relative">
             {
                 !!initialData.icon && !preview && (
                     <div className="flex items-center gap-x-2 group/icon pt-6">
@@ -128,13 +129,13 @@ const Toolbar = ({
                 }
             </div>
             {isEditing && !preview ? (
-                <TextareaAutoSize 
+                <TextareaAutoSize
                     ref={inputRef}
                     onBlur={disableInput}
                     onKeyDown={onKeyDown}
                     value={value}
                     onChange={(event) => onInput(event.target.value)}
-                    className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] resize-none"
+                    className="text-5xl bg-transparent font-bold break-words outline-none text-[#3F3F3F] dark:text-[#CFCFCF] overflow-x-clip "
                 />
             ) : (
                 <div

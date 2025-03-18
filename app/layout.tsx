@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Notion Clone",
+  title: "Jotter",
   description: "This is a notion clone",
   icons: {
     icon: [

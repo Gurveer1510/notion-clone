@@ -26,7 +26,7 @@ const Logo = () => {
             alt="Logo"
         />
         <p className={cn("font-semibold", font.className)}>
-            Notion
+            Jotter
         </p>
     </div>
   )
