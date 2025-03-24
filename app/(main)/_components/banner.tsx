@@ -1,30 +1,33 @@
 "use client"
 
+import { Doc } from '@/convex/_generated/dataModel'
 import { api } from '@/convex/_generated/api'
-import { Id } from '@/convex/_generated/dataModel'
 import { toast } from 'sonner'
 import { useMutation } from 'convex/react'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { Button } from '@/components/ui/button'
 import ConfirmModal from '@/components/modals/confirm-modal'
+import { useEdgeStore } from '@/lib/edgestore'
 
 interface BannerProps {
-    documentId: Id<"documents">
+    document: Doc<"documents">
 }
 
 const Banner = ({
-    documentId
+    document
 }: BannerProps) => {
 
     const router = useRouter()
-
+    const { edgestore } = useEdgeStore()
     const remove = useMutation(api.documents.remove)
     const restore = useMutation(api.documents.restore)
 
-    const onRemove = () => {
-        const promise = remove({ id: documentId })
-
+    const onRemove = async () => {
+        const promise = remove({ id: document._id })
+        await edgestore.publicFiles.delete({
+            url: document.coverImage!
+        })
         toast.promise(promise, {
             loading: "Deleting note",
             success: "Note deleted",
@@ -34,7 +37,7 @@ const Banner = ({
         router.push("/documents")
     }
     const onRestore = () => {
-        const promise = restore({ id: documentId })
+        const promise = restore({ id: document._id })
 
         toast.promise(promise, {
             loading: "Restoring note",

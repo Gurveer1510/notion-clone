@@ -187,7 +187,7 @@ export const restore = mutation({
 
 export const remove = mutation({
     args: { id: v.id("documents") },
-    handler: async(ctx, args) => {
+    handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity();
 
         if (!identity) {
@@ -198,11 +198,11 @@ export const remove = mutation({
 
         const existingDocument = await ctx.db.get(args.id)
 
-        if(!existingDocument) {
+        if (!existingDocument) {
             throw new Error("Not found.")
         }
 
-        if(existingDocument.userId !== userId) {
+        if (existingDocument.userId !== userId) {
             throw new Error("Unauthorized")
         }
 
@@ -216,19 +216,19 @@ export const getSearch = query({
     handler: async (ctx) => {
         const identity = await ctx.auth.getUserIdentity()
 
-        if(!identity){
+        if (!identity) {
             throw new Error("Not authenticated")
         }
 
         const userId = identity.subject
 
         const documents = await ctx.db.query("documents")
-        .withIndex("by_user", (q) => q.eq("userId", userId))
-        .filter((q) =>
-            q.eq(q.field("isArchived"), false)
-        )
-        .order("desc")
-        .collect()
+            .withIndex("by_user", (q) => q.eq("userId", userId))
+            .filter((q) =>
+                q.eq(q.field("isArchived"), false)
+            )
+            .order("desc")
+            .collect()
 
         return documents
     }
@@ -243,21 +243,21 @@ export const getById = query({
 
         const document = await ctx.db.get(args.documentId)
 
-        if(!document) {
+        if (!document) {
             throw new Error("Not found")
         }
 
-        if(document.isPublished && !document.isArchived){
+        if (document.isPublished && !document.isArchived) {
             return document
         }
 
-        if(!identity){
+        if (!identity) {
             throw new Error("Not authenticated")
         }
 
         const userId = identity.subject
 
-        if(document.userId !== userId){
+        if (document.userId !== userId) {
             throw new Error("Unauthorized")
         }
 
@@ -277,7 +277,7 @@ export const update = mutation({
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity()
 
-        if(!identity){
+        if (!identity) {
             throw new Error("Unauthenticated")
         }
 
@@ -289,11 +289,11 @@ export const update = mutation({
 
         const existingDocument = await ctx.db.get(args.id)
 
-        if(!existingDocument) {
+        if (!existingDocument) {
             throw new Error("Not found")
         }
 
-        if(existingDocument.userId !== userId){
+        if (existingDocument.userId !== userId) {
             throw new Error("Unauthorized")
         }
 
@@ -312,7 +312,7 @@ export const removeIcon = mutation({
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity()
 
-        if(!identity){
+        if (!identity) {
             throw new Error("Unauthenticated")
         }
 
@@ -320,11 +320,11 @@ export const removeIcon = mutation({
 
         const existingDocument = await ctx.db.get(args.id)
 
-        if(!existingDocument){
+        if (!existingDocument) {
             throw new Error("Not found")
         }
 
-        if(existingDocument.userId !== userId){
+        if (existingDocument.userId !== userId) {
             throw new Error("Unauthorized")
         }
 
@@ -343,7 +343,7 @@ export const removeCoverImage = mutation({
     handler: async (ctx, args) => {
         const identity = await ctx.auth.getUserIdentity()
 
-        if(!identity){
+        if (!identity) {
             throw new Error("Unauthenticated")
         }
 
@@ -351,11 +351,11 @@ export const removeCoverImage = mutation({
 
         const existingDocument = await ctx.db.get(args.id)
 
-        if(!existingDocument){
+        if (!existingDocument) {
             throw new Error("Not found")
         }
 
-        if(existingDocument.userId !== userId){
+        if (existingDocument.userId !== userId) {
             throw new Error("Unauthorized")
         }
 
